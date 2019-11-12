@@ -27,21 +27,31 @@ function initializeGrid() {
     tiles[i] = []
     var x = (windowHeight / 15) * 10 - squareSize / 2;
     for (var j = 0; j < 11; ++j) {
-      tiles[i][j] = initializeSquare(x, y, squareSize)
+      if (i == 5 && j == 5) {
+        tiles[i][j] = initializeSquare(x, y, squareSize, true)
+      } else {
+        tiles[i][j] = initializeSquare(x, y, squareSize, false)
+      }
       x += squareSize
     }
     y += squareSize;
   }
 }
 
-function initializeSquare(x, y, size) {
+function initializeSquare(x, y, size, ship) {
   return {
     x: x,
     y: y,
     size: size,
+    ship: ship,
 
     draw: function() {
+      fill(255)
       square(this.x, this.y, this.size)
+      if (this.ship) {
+        fill(0)
+        text("ship", this.x + 10, this.y + this.size / 2);
+      }
     }
   }
 }
