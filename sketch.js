@@ -76,21 +76,41 @@ function moveShip(direction) {
     var j = shipcoords[1]
 
     if (direction == 'west') {
-        updateTile(tiles[i][j], false)
-        updateTile(tiles[i][j - 1], true)
-        shipcoords = [i, j - 1]
+        if (legalMovement(i, j, direction)) {
+            updateTile(tiles[i][j], false)
+            updateTile(tiles[i][j - 1], true)
+            shipcoords = [i, j - 1]
+        }
     } else if (direction == 'east') {
-        updateTile(tiles[i][j], false)
-        updateTile(tiles[i][j + 1], true)
-        shipcoords = [i, j + 1]
+        if (legalMovement(i, j, direction)) {
+            updateTile(tiles[i][j], false)
+            updateTile(tiles[i][j + 1], true)
+            shipcoords = [i, j + 1]
+        }
     } else if (direction == 'north') {
-        updateTile(tiles[i][j], false)
-        updateTile(tiles[i - 1][j], true)
-        shipcoords = [i - 1, j]
+        if (legalMovement(i, j, direction)) {
+            updateTile(tiles[i][j], false)
+            updateTile(tiles[i - 1][j], true)
+            shipcoords = [i - 1, j]
+        }
     } else if (direction == 'south') {
-        updateTile(tiles[i][j], false)
-        updateTile(tiles[i + 1][j], true)
-        shipcoords = [i + 1, j]
+        if (legalMovement(i, j, direction)) {
+            updateTile(tiles[i][j], false)
+            updateTile(tiles[i + 1][j], true)
+            shipcoords = [i + 1, j]
+        }
+    }
+}
+
+function legalMovement(i, j, direction) {
+    if (direction == 'west') {
+        return (j - 1) >= 0
+    } else if (direction == 'east') {
+        return (j + 1) <= 10
+    } else if (direction == 'north') {
+        return (i - 1) >= 0
+    } else if (direction == 'south') {
+        return (i + 1) <= 10
     }
 }
 
