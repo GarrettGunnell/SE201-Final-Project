@@ -6,11 +6,11 @@ import (
 )
 
 func home(w http.ResponseWriter, r *http.Request) {
-	w,Write([]byte("Hello from test"))
+	w.Write([]byte("Hello from test"))
 }
 
-func main(){
-	mux :=http.NewServeMux()
+func main() {
+	mux := http.NewServeMux()
 	mux.HandleFunc("/", home)
 
 	log.Println("Starting new server on: 4000")
