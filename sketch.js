@@ -7,7 +7,7 @@ function setup() {
 }
 
 function draw() {
-  background(255)
+  background(230)
   //line(windowWidth / 2, 0, windowWidth / 2, windowHeight)
   fill(0)
   textSize(25)
