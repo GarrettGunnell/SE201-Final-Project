@@ -8,6 +8,7 @@ import (
 func main() {
     mux := http.NewServeMux()
     mux.HandleFunc("/", home)
+		mux.HandleFunc("/players", players)
 
     fileServer := http.FileServer(http.Dir("../../ui/static/"))
     mux.Handle("/static/", http.StripPrefix("/static", fileServer))
