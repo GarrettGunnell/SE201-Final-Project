@@ -16,7 +16,7 @@ func home(w http.ResponseWriter, r *http.Request) {
 }
 
 func players(w http.ResponseWriter, r *http.Request) {
-  ts, err := template.ParseFiles("../../ui/html/index.tmpl")
+  ts, err := template.ParseFiles("ui/html/index.tmpl")
   if err != nil {
       log.Println(err.Error())
       http.Error(w, "Internal Server Error", 500)
@@ -31,7 +31,7 @@ func players(w http.ResponseWriter, r *http.Request) {
 }
 
 func game(w http.ResponseWriter, r *http.Request) {
-  ts, err := template.ParseFiles("../../ui/html/game.tmpl")
+  ts, err := template.ParseFiles("ui/html/game.tmpl")
   if err != nil {
       log.Println(err.Error())
       http.Error(w, "Internal Server Error", 500)
