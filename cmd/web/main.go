@@ -15,6 +15,6 @@ func main() {
     mux.Handle("/static/", http.StripPrefix("/static", fileServer))
 
     log.Println("Starting server on :4000")
-    err := http.ListenAndServe(":4000", mux)
+    err := http.ListenAndServe(process.env.PORT, mux)
     log.Fatal(err)
 }
