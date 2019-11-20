@@ -16,18 +16,30 @@ func home(w http.ResponseWriter, r *http.Request) {
 }
 
 func players(w http.ResponseWriter, r *http.Request) {
-  ts, err := template.ParseFiles("ui/html/index.tmpl")
-  if err != nil {
-      log.Println(err.Error())
-      http.Error(w, "Internal Server Error", 500)
-      return
-  }
+    if r.Method == http.MethodGet {
+        ts, err := template.ParseFiles("ui/html/index.tmpl")
+        if err != nil {
+            log.Println(err.Error())
+            http.Error(w, "Internal Server Error", 500)
+            return
+        }
 
-  err = ts.Execute(w, nil)
-  if err != nil {
-      log.Println(err.Error())
-      http.Error(w, "Internal Server Error", 500)
-  }
+        err = ts.Execute(w, nil)
+        if err != nil {
+            log.Println(err.Error())
+            http.Error(w, "Internal Server Error", 500)
+        }
+    } else if r.Method == http.MethodPost {
+        err := r.ParseForm()
+        if err != nil {
+            log.Println(err.Error())
+            http.Error(w, "Failed to parse form", 500)
+            return
+        }
+        callsign := r.Form.Get("callsign")
+        w.Write([]byte(callsign))
+    }  
+  
 }
 
 func game(w http.ResponseWriter, r *http.Request) {

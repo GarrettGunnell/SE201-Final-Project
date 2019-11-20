@@ -123,5 +123,5 @@ function keyTyped() {
         moveShip('north')
     } else if (key == 's') {
         moveShip('south')
-    }
+     }
 }
