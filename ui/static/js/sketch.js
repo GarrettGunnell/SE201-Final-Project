@@ -1,5 +1,5 @@
 var tiles = []
-var shipcoords = [0, 0]
+var shipcoords = [5, 5]
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -27,47 +27,48 @@ function initializeGrid() {
     tiles[i] = []
     var x = (windowHeight / 15) * 10 - squareSize / 2;
     for (var j = 0; j < 11; ++j) {
-      if (i == 5 && j == 5) {
-        shipcoords = [i, j]
-        tiles[i][j] = initializeTile(x, y, squareSize, true)
-      } else {
-        tiles[i][j] = initializeTile(x, y, squareSize, false)
-      }
-      x += squareSize
+        tiles[i][j] = initializeTile(x, y, squareSize)
+        x += squareSize
     }
     y += squareSize;
   }
 }
 
-function initializeTile(x, y, size, ship) {
+function initializeTile(x, y, size) {
   return {
     x: x,
     y: y,
     size: size,
-    ship: ship,
 
     draw: function() {
       fill(255)
       square(this.x, this.y, this.size)
-      if (this.ship) {
-        fill(0)
-        textSize(this.size / 3)
-        text("ship", this.x + 10, this.y + this.size / 2);
-      }
     }
   }
-}
-
-function updateTile(tile, ship) {
-    tile.ship = ship
 }
 
 function drawGrid() {
   for (var i = 0; i < 11; ++i) {
     for (var j = 0; j < 11; ++j) {
-      tiles[i][j].draw();
+        tiles[i][j].draw()
+        if (shipIsHere(i, j)) {
+            drawShip(tiles[i][j])    
+        }
     }
   }
+}
+
+function shipIsHere(x, y) {
+    shipX = shipcoords[0]
+    shipY = shipcoords[1]
+    return x == shipX && y == shipY
+
+}
+
+function drawShip(tile) {
+    fill(0)
+    textSize(tile.size / 3)
+    text("ship", tile.x + 10, tile.y + tile.size / 2);
 }
 
 function moveShip(direction) {
@@ -77,26 +78,18 @@ function moveShip(direction) {
 
     if (direction == 'west') {
         if (legalMovement(i, j, direction)) {
-            updateTile(tiles[i][j], false)
-            updateTile(tiles[i][j - 1], true)
             shipcoords = [i, j - 1]
         }
     } else if (direction == 'east') {
         if (legalMovement(i, j, direction)) {
-            updateTile(tiles[i][j], false)
-            updateTile(tiles[i][j + 1], true)
             shipcoords = [i, j + 1]
         }
     } else if (direction == 'north') {
         if (legalMovement(i, j, direction)) {
-            updateTile(tiles[i][j], false)
-            updateTile(tiles[i - 1][j], true)
             shipcoords = [i - 1, j]
         }
     } else if (direction == 'south') {
         if (legalMovement(i, j, direction)) {
-            updateTile(tiles[i][j], false)
-            updateTile(tiles[i + 1][j], true)
             shipcoords = [i + 1, j]
         }
     }
