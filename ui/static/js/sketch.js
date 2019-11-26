@@ -52,7 +52,7 @@ function drawGrid() {
     for (var j = 0; j < 11; ++j) {
         tiles[i][j].draw()
         if (shipIsHere(i, j)) {
-            drawShip(tiles[i][j])    
+            drawShip(tiles[i][j])
         }
     }
   }
@@ -76,22 +76,27 @@ function moveShip(direction) {
     var i = shipcoords[0]
     var j = shipcoords[1]
 
-    if (direction == 'west') {
-        if (legalMovement(i, j, direction)) {
-            shipcoords = [i, j - 1]
-        }
-    } else if (direction == 'east') {
-        if (legalMovement(i, j, direction)) {
-            shipcoords = [i, j + 1]
-        }
-    } else if (direction == 'north') {
-        if (legalMovement(i, j, direction)) {
-            shipcoords = [i - 1, j]
-        }
-    } else if (direction == 'south') {
-        if (legalMovement(i, j, direction)) {
-            shipcoords = [i + 1, j]
-        }
+    switch(direction) {
+        case "west":
+            if (legalMovement(i, j, direction)) {
+                shipcoords = [i, j - 1]
+            }
+            break
+        case "east":
+            if (legalMovement(i, j, direction)) {
+                shipcoords = [i, j + 1]
+            }
+            break
+        case "north":
+            if (legalMovement(i, j, direction)) {
+                shipcoords = [i - 1, j]
+            }
+            break
+        case "south":
+            if (legalMovement(i, j, direction)) {
+                shipcoords = [i + 1, j]
+            }
+            break
     }
 }
 
