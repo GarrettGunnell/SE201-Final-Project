@@ -37,7 +37,17 @@ func players(w http.ResponseWriter, r *http.Request) {
             return
         }
         callsign := r.Form.Get("callsign")
-        w.Write([]byte(callsign))
+
+        expire := time.Now().AddDate(0, 0, 1)
+        cookie := http.Cookie{
+            Name: callsign,
+            Value: callsign,
+            Expires: expire,
+        }
+        http.SetCookie(w, &cookie)
+        
+        log.Println("Callsign: " + callsign)
+        http.Redirect(w, r, "/game", 301)
     }  
   
 }
