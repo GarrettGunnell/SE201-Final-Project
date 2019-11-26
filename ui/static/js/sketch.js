@@ -101,25 +101,31 @@ function moveShip(direction) {
 }
 
 function legalMovement(i, j, direction) {
-    if (direction == 'west') {
-        return (j - 1) >= 0
-    } else if (direction == 'east') {
-        return (j + 1) <= 10
-    } else if (direction == 'north') {
-        return (i - 1) >= 0
-    } else if (direction == 'south') {
-        return (i + 1) <= 10
-    }
+    switch(direction) {
+        case "west":
+            return (j - 1) >= 0
+        case "east":
+            return (j + 1) <= 10
+        case "north":
+            return (i - 1) >= 0
+        case "south":
+            return (i + 1) <= 10
+        }
 }
 
 function keyTyped() {
-    if (key == 'a') {
-        moveShip('west')
-    } else if (key == 'd') {
-        moveShip('east')
-    } else if (key == 'w') {
-        moveShip('north')
-    } else if (key == 's') {
-        moveShip('south')
+    switch(key) {
+        case "a":
+            moveShip('west')
+            break
+        case "d":
+            moveShip('east')
+            break
+        case "w":
+            moveShip('north')
+            break
+        case "s":
+            moveShip('south')
+            break
      }
 }
