@@ -4,6 +4,7 @@ import (
     "html/template"
     "log"
     "net/http"
+    "time"
 )
 
 func home(w http.ResponseWriter, r *http.Request) {
@@ -38,16 +39,17 @@ func players(w http.ResponseWriter, r *http.Request) {
         callsign := r.Form.Get("callsign")
 
         cookie := http.Cookie{
-            Name: Callsign,
+            Name: "Callsign",
             Value: callsign,
-            MaxAge: 60 * 60,            
+            Expires: time.Now().AddDate(0, 0, 1),
+            Path: "/",
         }
         http.SetCookie(w, &cookie)
 
         log.Println("Callsign: " + callsign)
         http.Redirect(w, r, "/game", 301)
-    }  
-  
+    }
+
 }
 
 func game(w http.ResponseWriter, r *http.Request) {
@@ -64,5 +66,14 @@ func game(w http.ResponseWriter, r *http.Request) {
       http.Error(w, "Internal Server Error", 500)
   }
 
-  
+  cookie, cookieerr := r.Cookie("Callsign")
+  if cookieerr != nil {
+      log.Println(cookieerr.Error())
+      http.Error(w, "Internal Server Error: Could not obtain callsign from cookie", 500)
+      return
+  }
+
+  callsign := cookie.Value
+  log.Println(callsign)
+  //w.Write([]byte(callsign))
 }

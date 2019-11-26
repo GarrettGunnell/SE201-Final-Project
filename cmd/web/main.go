@@ -3,14 +3,14 @@ package main
 import (
     "log"
     "net/http"
-		"os"
+	"os"
 )
 
 func main() {
     mux := http.NewServeMux()
     mux.HandleFunc("/", home)
-		mux.HandleFunc("/players", players)
-		mux.HandleFunc("/game", game)
+	mux.HandleFunc("/players", players)
+	mux.HandleFunc("/game", game)
 
     fileServer := http.FileServer(http.Dir("ui/static/"))
     mux.Handle("/static/", http.StripPrefix("/static", fileServer))
