@@ -23,7 +23,6 @@ func players(w http.ResponseWriter, r *http.Request) {
             http.Error(w, "Internal Server Error", 500)
             return
         }
-
         err = ts.Execute(w, nil)
         if err != nil {
             log.Println(err.Error())
@@ -38,14 +37,13 @@ func players(w http.ResponseWriter, r *http.Request) {
         }
         callsign := r.Form.Get("callsign")
 
-        expire := time.Now().AddDate(0, 0, 1)
         cookie := http.Cookie{
-            Name: callsign,
+            Name: Callsign,
             Value: callsign,
-            Expires: expire,
+            MaxAge: 60 * 60,            
         }
         http.SetCookie(w, &cookie)
-        
+
         log.Println("Callsign: " + callsign)
         http.Redirect(w, r, "/game", 301)
     }  
@@ -65,4 +63,6 @@ func game(w http.ResponseWriter, r *http.Request) {
       log.Println(err.Error())
       http.Error(w, "Internal Server Error", 500)
   }
+
+  
 }
