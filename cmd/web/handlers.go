@@ -17,6 +17,13 @@ func home(w http.ResponseWriter, r *http.Request) {
 }
 
 func players(w http.ResponseWriter, r *http.Request) {
+    cookie, cookieerr := r.Cookie("Callsign")
+    if cookieerr != nil {
+        log.Println(cookieerr.Error())
+    }
+    if cookie != nil {
+        http.Redirect(w, r, "/game", http.StatusSeeOther)
+    }
     if r.Method == http.MethodGet {
         ts, err := template.ParseFiles("ui/html/index.html")
         if err != nil {
@@ -47,6 +54,24 @@ func players(w http.ResponseWriter, r *http.Request) {
         http.SetCookie(w, &cookie)
 
         log.Println("Callsign: " + callsign)
+
+        cookiecoordX := http.Cookie{
+            Name: "XCoordinate",
+            Value: "5",
+            Expires: time.Now().AddDate(0, 0, 1),
+            Path: "/",
+        }
+
+        http.SetCookie(w, &cookiecoordX)
+        cookiecoordY := http.Cookie{
+            Name: "YCoordinate",
+            Value: "5",
+            Expires: time.Now().AddDate(0, 0, 1),
+            Path: "/",
+        }
+
+        http.SetCookie(w, &cookiecoordY)
+
         http.Redirect(w, r, "/game", 301)
     }
 
@@ -75,5 +100,5 @@ func game(w http.ResponseWriter, r *http.Request) {
 
   callsign := cookie.Value
   log.Println(callsign)
-  //w.Write([]byte(callsign))
+  w.Write([]byte(callsign))
 }
