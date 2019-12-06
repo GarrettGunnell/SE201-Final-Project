@@ -1,5 +1,5 @@
 package main
-
+/*
 import(
 	"encoding/json"
 	"fmt"
@@ -48,7 +48,8 @@ func echo(){
 				log.Printf("Websocket error", err)
 				client.Close()
 				delete(clients, client)
-			} 
+			}
 		}
 	}
 }
+*/

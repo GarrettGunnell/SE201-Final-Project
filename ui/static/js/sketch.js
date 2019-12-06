@@ -1,11 +1,12 @@
 var tiles = []
 var shipcoords = [5, 5]
+var callsign = "null"
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
   initializeGrid();
   console.log(document.cookie)
-  console.log("AAAAA")
+  parseCookies();
 }
 
 function draw() {
@@ -17,7 +18,6 @@ function draw() {
   text("Status: ", windowWidth / 2, windowHeight / 9)
   text("Credits: 6", 3 * (windowWidth / 4), windowHeight / 4);
   text("Cargo:", 3 * (windowWidth / 4), windowHeight / 2);
-  text("Cookie: " + document.cookie, 200, 200);
   fill(255)
   drawGrid();
 }
@@ -71,7 +71,7 @@ function shipIsHere(x, y) {
 function drawShip(tile) {
     fill(0)
     textSize(tile.size / 3)
-    text("ship", tile.x + 10, tile.y + tile.size / 2);
+    text(callsign, tile.x + 10, tile.y + tile.size / 2);
 }
 
 function moveShip(direction) {
@@ -131,4 +131,38 @@ function keyTyped() {
             moveShip('south')
             break
      }
+}
+
+function parseCookies() {
+    cookie = document.cookie
+    cookies = []
+    cookiename = ''
+    cookievalue = 0;
+    cookiestring = ''
+    for (var i = 0; i < cookie.length; ++i) {
+        if (cookie[i] == ";") {
+            cookies.push(cookiestring)
+            cookiestring = ''
+            continue
+        }
+        cookiestring += cookie[i]
+    }
+    cookies.push(cookiestring);
+
+    for (var i = 0; i < cookies.length; ++i) {
+        name = cookies[i].split("=")[0].trim()
+        value = cookies[i].split("=")[1].trim()
+
+        switch(name) {
+            case "XCoordinate":
+                shipcoords[1] = parseInt(value)
+                break
+            case "YCoordinate":
+                shipcoords[0] = parseInt(value)
+                break
+            case "Callsign":
+                callsign = value
+                break
+        }
+    }
 }

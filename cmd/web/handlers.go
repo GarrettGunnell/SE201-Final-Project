@@ -5,11 +5,6 @@ import (
     "log"
     "net/http"
     "time"
-    "fmt"
-    "encoding/json"
-
-    "github.com/gorilla/mux"
-	"github.com/gorilla/websocket"
 )
 
 func home(w http.ResponseWriter, r *http.Request) {
@@ -105,5 +100,5 @@ func game(w http.ResponseWriter, r *http.Request) {
 
   callsign := cookie.Value
   log.Println(callsign)
-  w.Write([]byte(callsign))
+  //w.Write([]byte(callsign))
 }
