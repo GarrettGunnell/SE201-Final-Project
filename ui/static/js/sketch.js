@@ -5,7 +5,7 @@ var callsign = "null"
 function setup() {
   createCanvas(windowWidth, windowHeight);
   initializeGrid();
-  console.log(document.cookie)
+  //console.log(document.cookie)
   parseCookies();
 }
 
@@ -14,7 +14,7 @@ function draw() {
   //line(windowWidth / 2, 0, windowWidth / 2, windowHeight)
   fill(0)
   textSize(25)
-  text("Trade Wars (U w U", windowWidth / 20, windowHeight / 15);
+  text("Trade Wars (U w U)", windowWidth / 20, windowHeight / 15);
   text("Status: ", windowWidth / 2, windowHeight / 9)
   text("Credits: 6", 3 * (windowWidth / 4), windowHeight / 4);
   text("Cargo:", 3 * (windowWidth / 4), windowHeight / 2);

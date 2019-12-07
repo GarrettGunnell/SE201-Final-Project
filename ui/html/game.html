@@ -3,8 +3,15 @@
   <title>Molly Rankin's Trade Wars</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.8.0/p5.js"></script>
   <script src="../static/js/sketch.js"></script>
+  <link href="../static/css/gamestyle.css" rel="stylesheet">
 </head>
 <body>
-  <style> body{padding:0; margin:0;} </style>
+  <form action="/game" method="POST">
+    <input name="movement" type="checkbox" value="Left">Left<br>
+    <input name="movement" type="checkbox" value="Right">Right<br>
+    <input name="movement" type="checkbox" value="Up">Up<br>
+    <input name="movement" type="checkbox" value="Down">Down<br>
+    <input type="submit" value="Move">
+  </form>
 </body>
 </html>

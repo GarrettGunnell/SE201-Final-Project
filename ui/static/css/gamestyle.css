@@ -1,0 +1,11 @@
+body {
+    padding: 0;
+    margin: 0;
+}
+
+form {
+    position: absolute;
+    left: 10%;
+    top: 10%;
+
+}

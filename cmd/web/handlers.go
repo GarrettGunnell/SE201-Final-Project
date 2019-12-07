@@ -5,6 +5,7 @@ import (
     "log"
     "net/http"
     "time"
+    "strconv"
 )
 
 func home(w http.ResponseWriter, r *http.Request) {
@@ -101,4 +102,45 @@ func game(w http.ResponseWriter, r *http.Request) {
   callsign := cookie.Value
   log.Println(callsign)
   //w.Write([]byte(callsign))
+
+  if r.Method == http.MethodPost {
+      xcookie, _ := r.Cookie("XCoordinate")
+      xcoord, _  := strconv.Atoi(xcookie.Value)
+      ycookie, _ := r.Cookie("YCoordinate")
+      ycoord, _  := strconv.Atoi(ycookie.Value)
+      r.ParseForm();
+      for i := 0; i < len(r.Form["movement"]); i++ {
+          direction := r.Form["movement"][i]
+          log.Println(r.Form["movement"][i])
+          if direction == "Left" {
+              xcoord -= 1
+          }
+          if direction == "Right" {
+              xcoord += 1
+          }
+          if direction == "Up" {
+              ycoord += 1
+          }
+          if direction == "Down" {
+              ycoord -= 1
+          }
+      }
+
+      cookiecoordX := http.Cookie{
+          Name: "XCoordinate",
+          Value: strconv.Itoa(xcoord),
+          Expires: time.Now().AddDate(0, 0, 1),
+          Path: "/",
+      }
+
+      http.SetCookie(w, &cookiecoordZ)
+      cookiecoordY := http.Cookie{
+          Name: "YCoordinate",
+          Value: strconv.Itoa(ycoord),
+          Expires: time.Now().AddDate(0, 0, 1),
+          Path: "/",
+      }
+
+      http.SetCookie(w, &cookiecoordY)
+  }
 }
