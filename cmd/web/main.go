@@ -10,8 +10,9 @@ func main() {
     mux := http.NewServeMux()
     mux.HandleFunc("/", home)
 	mux.HandleFunc("/players", players)
-	mux.HandleFunc("/game", game)
+    mux.HandleFunc("/game", game)
     mux.HandleFunc("/move", move)
+    mux.HandleFunc("/chat", wsEndpoint)
 
     fileServer := http.FileServer(http.Dir("ui/static/"))
     mux.Handle("/static/", http.StripPrefix("/static", fileServer))
