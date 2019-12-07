@@ -5,8 +5,11 @@ import (
     "log"
     "net/http"
     "time"
+<<<<<<< HEAD
 
 	"github.com/gorilla/websocket"
+=======
+>>>>>>> 2d314905f613156e4bfc854b81c72f70196a2d5a
 )
 
 func home(w http.ResponseWriter, r *http.Request) {
@@ -102,7 +105,7 @@ func game(w http.ResponseWriter, r *http.Request) {
 
   callsign := cookie.Value
   log.Println(callsign)
-  w.Write([]byte(callsign))
+  //w.Write([]byte(callsign))
 }
 
 // Websocket stuff below
