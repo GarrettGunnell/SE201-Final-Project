@@ -55,8 +55,6 @@ func players(w http.ResponseWriter, r *http.Request) {
         }
         http.SetCookie(w, &cookie)
 
-        log.Println("Callsign: " + callsign)
-
         cookiecoordX := http.Cookie{
             Name: "XCoordinate",
             Value: "5",
@@ -92,59 +90,6 @@ func game(w http.ResponseWriter, r *http.Request) {
       log.Println(err.Error())
       http.Error(w, "Internal Server Error", 500)
   }
-
-  cookie, cookieerr := r.Cookie("Callsign")
-  if cookieerr != nil {
-      log.Println(cookieerr.Error())
-      http.Error(w, "Internal Server Error: Could not obtain callsign from cookie", 500)
-      return
-  }
-
-  callsign := cookie.Value
-  log.Println(callsign)
-  //w.Write([]byte(callsign))
-  /*
-  if r.Method == http.MethodPost {
-      xcookie, _ := r.Cookie("XCoordinate")
-      xcoord, _  := strconv.Atoi(xcookie.Value)
-      ycookie, _ := r.Cookie("YCoordinate")
-      ycoord, _  := strconv.Atoi(ycookie.Value)
-      r.ParseForm();
-      for i := 0; i < len(r.Form["movement"]); i++ {
-          direction := r.Form["movement"][i]
-          log.Println(r.Form["movement"][i])
-          if direction == "Left" {
-              xcoord -= 1
-          }
-          if direction == "Right" {
-              xcoord += 1
-          }
-          if direction == "Up" {
-              ycoord += 1
-          }
-          if direction == "Down" {
-              ycoord -= 1
-          }
-      }
-
-      cookiecoordX := http.Cookie{
-          Name: "XCoordinate",
-          Value: strconv.Itoa(xcoord),
-          Expires: time.Now().AddDate(0, 0, 1),
-          Path: "/",
-      }
-
-      http.SetCookie(w, &cookiecoordZ)
-      cookiecoordY := http.Cookie{
-          Name: "YCoordinate",
-          Value: strconv.Itoa(ycoord),
-          Expires: time.Now().AddDate(0, 0, 1),
-          Path: "/",
-      }
-
-      http.SetCookie(w, &cookiecoordY)
-  }
-  */
 }
 
 func move(w http.ResponseWriter, r *http.Request) {
@@ -155,7 +100,6 @@ func move(w http.ResponseWriter, r *http.Request) {
     r.ParseForm();
     for i := 0; i < len(r.Form["movement"]); i++ {
         direction := r.Form["movement"][i]
-        log.Println(r.Form["movement"][i])
         if direction == "Left" {
             xcoord -= 1
         }
