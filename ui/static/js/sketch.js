@@ -74,65 +74,6 @@ function drawShip(tile) {
     text(callsign, tile.x + 10, tile.y + tile.size / 2);
 }
 
-function moveShip(direction) {
-    shiptile = tiles[shipcoords[0]][shipcoords[1]]
-    var i = shipcoords[0]
-    var j = shipcoords[1]
-
-    switch(direction) {
-        case "west":
-            if (legalMovement(i, j, direction)) {
-                shipcoords = [i, j - 1]
-            }
-            break
-        case "east":
-            if (legalMovement(i, j, direction)) {
-                shipcoords = [i, j + 1]
-            }
-            break
-        case "north":
-            if (legalMovement(i, j, direction)) {
-                shipcoords = [i - 1, j]
-            }
-            break
-        case "south":
-            if (legalMovement(i, j, direction)) {
-                shipcoords = [i + 1, j]
-            }
-            break
-    }
-}
-
-function legalMovement(i, j, direction) {
-    switch(direction) {
-        case "west":
-            return (j - 1) >= 0
-        case "east":
-            return (j + 1) <= 10
-        case "north":
-            return (i - 1) >= 0
-        case "south":
-            return (i + 1) <= 10
-        }
-}
-
-function keyTyped() {
-    switch(key) {
-        case "a":
-            moveShip('west')
-            break
-        case "d":
-            moveShip('east')
-            break
-        case "w":
-            moveShip('north')
-            break
-        case "s":
-            moveShip('south')
-            break
-     }
-}
-
 function parseCookies() {
     cookie = document.cookie
     cookies = []
